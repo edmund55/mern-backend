@@ -44,15 +44,16 @@ const getPlacesByUserId = async (req, res, next) => {
     );
   }
 
-  if (!userWithPlaces || userWithPlaces.places.length === 0) {
+  if (!userWithPlaces) {
     return next(
       new NotFoundError("Could not find places for the provided user id.")
     );
   }
 
-  res
-    .status(200)
-    .json({ places: userWithPlaces.places, count: userWithPlaces.length });
+  res.status(200).json({
+    places: userWithPlaces.places,
+    count: userWithPlaces.length,
+  });
 };
 
 const createPlace = async (req, res, next) => {
